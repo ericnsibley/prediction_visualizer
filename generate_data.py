@@ -14,6 +14,7 @@ def generate_data(rows: int, cols: int) -> pd.DataFrame:
     data = np.random.rand(rows, cols)
     df = pd.DataFrame(data=data)
     df['fraud'] = np.random.choice([0, 1], size=rows, p=[0.9, 0.1]) 
+    df['id'] = np.arange(len(df))
     return df 
 
 if __name__ == "__main__":
