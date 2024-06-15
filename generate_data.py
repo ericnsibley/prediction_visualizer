@@ -5,8 +5,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+#remote: error: File fake_engineered_features.csv is 282.34 MB; this exceeds GitHub's file size limit of 100.00 MB 
 row_count = 10000
-col_count = 1536
+col_count = 500
 
 
 def generate_data(rows: int, cols: int) -> pd.DataFrame: 
