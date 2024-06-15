@@ -31,8 +31,8 @@ jobs:
         
             - name: Commit changes
               run: |
-                git add generated_data.csv
-                git commit -m "Update generated_data.csv with new data"
+                git add fake_engineered_features.csv
+                git commit -m "Update fake_engineered_features.csv with new data"
         
             - name: Push changes
               uses: ad-m/github-push-action@v0.6.0
