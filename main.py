@@ -8,17 +8,11 @@ import plotly.io as pio
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-row_count = 10000
-col_count = 1536
 
 
-def generate_data(rows: int, cols: int) -> pd.DataFrame: 
-    data = np.random.rand(rows, cols)
-    df = pd.DataFrame(data=data)
-    df['fraud'] = np.random.choice([0, 1], size=rows, p=[0.9, 0.1]) # I could attach this col after the PCA, but I wanted to structure my data source like how I do at work
-    logger.info(f"To simulate my data store I am generating a tabular set with shape '{df.shape}'")
-    logger.info(f"For those familiar with RAG you may recognize that as a common embedding cardinality")
-    return df 
+
+logger.info(f"To simulate my data store I am generating a tabular set with shape '{df.shape}'")
+logger.info(f"For those familiar with RAG you may recognize that as a common embedding cardinality")
 
 
 def project_down(df: pd.DataFrame) -> pd.DataFrame:
@@ -32,7 +26,7 @@ def project_down(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    df = generate_data(row_count, col_count)
+    
     pca_df = project_down(df)
 
     fig = px.scatter_3d(

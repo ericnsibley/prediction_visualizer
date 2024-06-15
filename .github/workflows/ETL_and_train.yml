@@ -1,0 +1,41 @@
+on: 
+    push: 
+        branches: 
+            - master
+            
+jobs: 
+    data-load:
+        runs-on: ubuntu-latest
+        
+        steps: 
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Install Python
+              uses: actions/setup-python@v4
+              with:  
+                python-version: '3.10.12'
+
+            - name: Install dependencies
+              run: |
+                pip install -r requirements.txt
+
+            - name: Run data generation script
+              run: |
+                python generate_data.py
+
+            - name: Configure Git
+              run: |
+                git config --global user.name 'github-actions[bot]'
+                git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+            - name: Commit changes
+              run: |
+                git add generated_data.csv
+                git commit -m "Update generated_data.csv with new data"
+        
+            - name: Push changes
+              uses: ad-m/github-push-action@v0.6.0
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                branch: master
