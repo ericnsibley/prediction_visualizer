@@ -15,20 +15,12 @@ def load_data(file_path: str) -> pd.DataFrame:
     return df
 
 
-def auprc_eval(y_pred, dtrain):
-    y_true = dtrain.get_label()
-    precision, recall, _ = precision_recall_curve(y_true, y_pred)
-    score = auc(recall, precision)
-    return 'AUPRC', score
-
-
 def train_model(df: pd.DataFrame):
     x = df.drop('fraud', axis=1)
     y = df['fraud']
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-    # xgb_tree = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-    xgb_tree = XGBClassifier(use_label_encoder=False, eval_metric=auprc_eval)
+    xgb_tree = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
     xgb_tree.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=True)
 
     y_pred = xgb_tree.predict(X_test)
