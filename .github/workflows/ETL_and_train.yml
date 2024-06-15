@@ -24,6 +24,10 @@ jobs:
               run: |
                 python generate_data.py
 
+            - name: Run train model script
+              run: | 
+                python train_model.py
+
             - name: Configure Git
               run: |
                 git config --global user.name 'github-actions[bot]'
@@ -31,7 +35,7 @@ jobs:
         
             - name: Commit changes
               run: |
-                git add fake_engineered_features.csv
+                git add .
                 git commit -m "Update fake_engineered_features.csv with new data"
         
             - name: Push changes
