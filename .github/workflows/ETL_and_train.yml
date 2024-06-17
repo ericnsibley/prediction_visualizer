@@ -37,6 +37,7 @@ jobs:
               run: |
                 git add .
                 git commit -m "Update fake_engineered_features.csv with new data"
+                git pull --rebase origin master
         
             - name: Push changes
               uses: ad-m/github-push-action@v0.6.0
