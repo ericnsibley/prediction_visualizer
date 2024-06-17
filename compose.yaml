@@ -1,8 +1,7 @@
 version: '3'
 services:
   web:
-    build:
-      context: .
+    image: ghcr.io/ericnsibley/prediction_visualizer:latest
     ports:
       - "8050:8050"
 
