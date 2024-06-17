@@ -52,6 +52,7 @@ jobs:
 
             - name: Deploy
               run: | 
+                echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
                 ssh root@${{ secrets.DO_DROPLET_IP }} << 'EOF'
                     cd cd prediction_visualizer/
                     git pull origin master
