@@ -54,7 +54,7 @@ jobs:
               run: | 
                 echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
                 ssh root@${{ secrets.DO_DROPLET_IP }} << 'EOF'
-                    cd cd prediction_visualizer/
+                    cd prediction_visualizer/
                     git pull origin master
                     docker compose down
                     docker compose up -d --build
