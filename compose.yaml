@@ -15,6 +15,8 @@ services:
       - "443:443"
     depends_on:
       - web
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
 
   certbot:
     image: certbot/certbot
