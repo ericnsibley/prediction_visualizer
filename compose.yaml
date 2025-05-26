@@ -4,6 +4,11 @@ services:
     ports:
       - "8050:8050"
 
+  real_estate_mcp:
+    image: ghcr.io/ericnsibley/real_estate_mcp:latest
+    ports: 
+      - "8060:8060"
+
   nginx:
     image: nginx:latest
     volumes:
@@ -15,8 +20,7 @@ services:
       - "443:443"
     depends_on:
       - web
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - real_estate_mcp
 
   certbot:
     image: certbot/certbot
