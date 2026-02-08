@@ -1,0 +1,37 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  etl-manual:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run data generation and training
+        run: |
+          python generate_data.py
+          python train_model.py
+
+      - name: Commit generated dataset
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add fake_engineered_features.csv || true
+          git commit -m "Update fake_engineered_features.csv (manual ETL)" || echo "No changes to commit"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
