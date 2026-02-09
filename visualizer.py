@@ -36,7 +36,11 @@ def create_dash_app(df: pd.DataFrame, reduced_df: pd.DataFrame, model) -> Dash:
         color_discrete_map={'0': 'blue', '1': 'red'}
     )
 
-    app = Dash(__name__)
+    app = Dash(
+        __name__,
+        requests_pathname_prefix='/visualizer/',
+        routes_pathname_prefix='/visualizer/'
+    )
     app.layout = html.Div([
         dcc.Graph(id='3d-scatter', figure=fig, style={'width': '100vw', 'height': '80vh'}),
         html.Div(id='hover-data', style={'whiteSpace': 'pre-line'})
